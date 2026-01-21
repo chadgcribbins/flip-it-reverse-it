@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flip It & Reverse It</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div>
+          <p class="eyebrow">Braun-inspired vocal lab</p>
+          <h1>Flip It & Reverse It</h1>
+        </div>
+        <div class="header-meta">
+          <div class="meta-block">
+            <span class="meta-label">MAX</span>
+            <span id="maxSeconds" class="meta-value">120s</span>
+          </div>
+          <button id="clearStorage" class="button ghost">Clear Local</button>
+        </div>
+      </header>
+
+      <main class="grid">
+        <section class="panel" data-animate>
+          <div class="panel-head">
+            <h2>Original</h2>
+            <div class="status" id="originalStatus">Ready.</div>
+          </div>
+          <div class="controls">
+            <button id="recordOriginal" class="button record icon" aria-label="Record">
+              &#9679;
+            </button>
+            <button id="playOriginal" class="button icon" aria-label="Play">
+              &#9654;
+            </button>
+            <button id="playReverse" class="button icon" aria-label="Reverse">
+              &#9664;
+            </button>
+          </div>
+          <div class="panel-foot">
+            <div class="duration">
+              <span class="label">Duration</span>
+              <span id="originalDuration" class="value">--:--</span>
+            </div>
+            <div class="format">
+              <span class="label">Format</span>
+              <span id="originalFormat" class="value">--</span>
+            </div>
+            <div class="download-meta">
+              <span class="label">Clip</span>
+              <div class="meta-actions">
+                <button
+                  id="downloadOriginal"
+                  class="button ghost icon meta-action"
+                  aria-label="Download clip"
+                  disabled
+                >
+                  &#8681;
+                </button>
+                <button
+                  id="uploadOriginal"
+                  class="button ghost icon meta-action"
+                  aria-label="Upload clip"
+                >
+                  &#8679;
+                </button>
+                <input
+                  id="uploadOriginalInput"
+                  type="file"
+                  accept="audio/*"
+                  hidden
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-animate>
+          <div class="panel-head">
+            <h2>Mimic</h2>
+            <div class="status" id="mimicStatus">Record your attempt.</div>
+          </div>
+          <div class="controls">
+            <button id="recordMimic" class="button record icon" aria-label="Record">
+              &#9679;
+            </button>
+            <button id="playMimic" class="button icon" aria-label="Play">
+              &#9654;
+            </button>
+            <button id="playMimicReverse" class="button icon" aria-label="Reverse">
+              &#9664;
+            </button>
+          </div>
+          <div class="panel-foot">
+            <div class="duration">
+              <span class="label">Duration</span>
+              <span id="mimicDuration" class="value">--:--</span>
+            </div>
+            <div class="format">
+              <span class="label">Format</span>
+              <span id="mimicFormat" class="value">--</span>
+            </div>
+            <div class="download-meta">
+              <span class="label">Clip</span>
+              <div class="meta-actions">
+                <button
+                  id="downloadMimic"
+                  class="button ghost icon meta-action"
+                  aria-label="Download clip"
+                  disabled
+                >
+                  &#8681;
+                </button>
+                <button
+                  id="uploadMimic"
+                  class="button ghost icon meta-action"
+                  aria-label="Upload clip"
+                >
+                  &#8679;
+                </button>
+                <input
+                  id="uploadMimicInput"
+                  type="file"
+                  accept="audio/*"
+                  hidden
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel wide" data-animate>
+          <div class="panel-head">
+            <h2>Transport</h2>
+            <div class="status" id="transportStatus">No playback running.</div>
+          </div>
+          <div class="transport">
+            <div class="transport-main">
+              <div class="track-list">
+                <div class="track" data-track="A">
+                  <div class="track-head">
+                    <div class="track-title">
+                      <span class="track-tag">Track 1</span>
+                      <span class="track-name">Original ↔ Mimic Reverse</span>
+                    </div>
+                  </div>
+                  <div class="track-controls">
+                    <div class="track-buttons">
+                      <button id="trackAToggle" class="button icon" aria-label="Play">
+                        &#9654;
+                      </button>
+                      <button
+                        id="trackAStop"
+                        class="button ghost icon"
+                        aria-label="Stop"
+                      >
+                        &#9632;
+                      </button>
+                    </div>
+                    <div class="track-time">
+                      <span id="trackAElapsed">00:00</span>
+                      <span class="track-sep">/</span>
+                      <span id="trackADuration">--:--</span>
+                    </div>
+                  </div>
+                  <div class="waveform">
+                    <canvas id="trackAWave"></canvas>
+                    <div id="trackAPlayhead" class="playhead"></div>
+                  </div>
+                  <div class="scrub-row">
+                    <select
+                      id="trackASource"
+                      class="track-select"
+                      aria-label="Track 1 source"
+                    >
+                      <option value="original">Original</option>
+                      <option value="mimicReverse">Mimic Reverse</option>
+                    </select>
+                    <input
+                      id="trackAScrub"
+                      class="scrubber"
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value="0"
+                    />
+                  </div>
+                </div>
+                <div class="track" data-track="B">
+                  <div class="track-head">
+                    <div class="track-title">
+                      <span class="track-tag">Track 2</span>
+                      <span class="track-name">Original Reverse ↔ Mimic</span>
+                    </div>
+                  </div>
+                  <div class="track-controls">
+                    <div class="track-buttons">
+                      <button id="trackBToggle" class="button icon" aria-label="Play">
+                        &#9654;
+                      </button>
+                      <button
+                        id="trackBStop"
+                        class="button ghost icon"
+                        aria-label="Stop"
+                      >
+                        &#9632;
+                      </button>
+                    </div>
+                    <div class="track-time">
+                      <span id="trackBElapsed">00:00</span>
+                      <span class="track-sep">/</span>
+                      <span id="trackBDuration">--:--</span>
+                    </div>
+                  </div>
+                  <div class="waveform">
+                    <canvas id="trackBWave"></canvas>
+                    <div id="trackBPlayhead" class="playhead"></div>
+                  </div>
+                  <div class="scrub-row">
+                    <select
+                      id="trackBSource"
+                      class="track-select"
+                      aria-label="Track 2 source"
+                    >
+                      <option value="originalReverse">Original Reverse</option>
+                      <option value="mimic">Mimic</option>
+                    </select>
+                    <input
+                      id="trackBScrub"
+                      class="scrubber"
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel v2" data-animate>
+          <div class="panel-head">
+            <h2>V2 Tools</h2>
+            <div class="status">Placeholder for the next release.</div>
+          </div>
+          <div class="controls">
+            <button class="button ghost" disabled>Loop</button>
+            <button class="button ghost" disabled>Compare Overlay</button>
+            <button class="button ghost" disabled>Effects Rack</button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="notes">
+          <p>
+            Tip: record a short phrase, play it in reverse, and try to mimic the
+            reversed contour. This uses local storage only.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
