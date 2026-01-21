@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Nano banana wave">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4f2ed" />
+      <stop offset="100%" stop-color="#e7e3dc" />
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="52" height="52" rx="18" fill="url(#bg)" />
+  <path
+    d="M14 36c6-8 12-8 18 0s12 8 18 0"
+    fill="none"
+    stroke="#f2c14e"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M18 28c4-5 9-5 13 0"
+    fill="none"
+    stroke="#c4512f"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+  <circle cx="46" cy="26" r="3" fill="#2f8f9a" />
+</svg>
